@@ -52,7 +52,7 @@ final class WeatherContentViewController: UIViewController {
 
     private func setupLayout() {
         view.addSubview(scrollView, with: { scroll, parent in
-            scroll.pin(to: parent)
+            scroll.pin(to: parent.safeAreaLayoutGuide)
         })
 
         scrollView.addSubview(stackView, with: { stack, parent in
