@@ -7,6 +7,7 @@ struct CurrentWeatherResponse: Decodable, Sendable {
 
 struct Location: Decodable, Sendable {
     let name: String
+    let localtime: String
 }
 
 struct CurrentCondition: Decodable, Sendable {

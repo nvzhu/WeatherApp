@@ -85,13 +85,13 @@ final class WeatherPresenter {
             feelsLike: "Ощущается как \(Int(current.feelslikeC))°",
             wind: "\(Int(current.windKph)) км/ч",
             humidity: "\(current.humidity)%",
-            hourly: makeHourlyItems(from: response.forecast.forecastday),
+            hourly: makeHourlyItems(from: response.forecast.forecastday, localtime: response.location.localtime),
             daily: makeDailyItems(from: response.forecast.forecastday)
         )
     }
 
-    private func makeHourlyItems(from days: [ForecastDay]) -> [WeatherViewModel.HourlyItem] {
-        let currentHour = Calendar.current.component(.hour, from: Date())
+    private func makeHourlyItems(from days: [ForecastDay], localtime: String) -> [WeatherViewModel.HourlyItem] {
+        let currentHour = extractHour(from: localtime)
         var items: [WeatherViewModel.HourlyItem] = []
 
         if let today = days.first {
