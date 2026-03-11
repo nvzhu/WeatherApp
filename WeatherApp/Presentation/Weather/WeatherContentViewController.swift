@@ -41,10 +41,6 @@ final class WeatherContentViewController: UIViewController {
 
     // MARK: - Lifecycle
 
-    override func loadView() {
-        view = scrollView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -55,13 +51,15 @@ final class WeatherContentViewController: UIViewController {
     // MARK: - Layout
 
     private func setupLayout() {
-        view.addSubview(stackView, activate: [
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
-            stackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
-        ])
+        view.addSubview(scrollView, with: { scroll, parent in
+            scroll.pin(to: parent.safeAreaLayoutGuide)
+        })
+
+        scrollView.addSubview(stackView, activate:
+            stackView.pin(to: scrollView) + [
+                stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            ]
+        )
 
         stackView.addArrangedSubview(currentWeatherView)
         stackView.addArrangedSubview(makeSectionHeader("Почасовой прогноз"))

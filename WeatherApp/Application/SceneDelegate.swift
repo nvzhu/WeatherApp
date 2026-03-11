@@ -19,7 +19,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let weatherVC = WeatherViewController(presenter: presenter)
 
         let nav = UINavigationController(rootViewController: weatherVC)
-        nav.navigationBar.prefersLargeTitles = true
 
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = nav
